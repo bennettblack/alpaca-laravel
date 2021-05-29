@@ -3,6 +3,20 @@
 
 A simple Laravel wrapper for the Alpaca V2 Trading API.
 
+## Features
+
+- Account Overview
+- Positions Overview
+    
+
+## Installation 
+
+Install via composer
+
+```bash 
+  composer require bennettblack/alpaca-laravel
+```
+
 
 ## Environment Variables
 
@@ -19,21 +33,6 @@ To run this project, you will need to add the following environment variables to
 `ALPACA_PAPER_SECRET`
 
   
-## Features
-
-- Account Overview
-- Positions Overview
-
-  
-## Installation 
-
-Install via composer
-
-```bash 
-  composer require bennettblack/alpaca-laravel
-```
-    
-
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
