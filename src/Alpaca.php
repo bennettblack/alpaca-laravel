@@ -57,8 +57,7 @@ class Alpaca{
      *
      * @return Collection
      */
-    public function orders()
-    {
+    public function orders(){
 
         $uri = '/v2/orders';
 
