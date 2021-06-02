@@ -7,8 +7,10 @@ class Order{
 
     private $symbol;
     private $quantity;
+    private $time_in_force;
+    private $side;
 
-    function __construct(String $symbol){
+    public function __construct(String $symbol){
 
         $this->symbol = $symbol;
     }
@@ -16,13 +18,54 @@ class Order{
     /**
      * Add a quantity to an order
      *
-     * @param string $sybmol
+     * @return Order
+     */
+    public function quantity(String $quantity){
+
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Time in Force
+     *
+     * - Day Order: 'day',
+     * - Good Until Cancelled: 'gtc'
      *
      * @return Order
      */
-    function quantity(String $quantity){
+    public function force(String $time)
+    {
 
-        $this->quantity = $quantity;
+        $times = ['day', 'gtc'];
+
+        if (!in_array($time, $times))
+            throw new \Exception('You must enter a valid time in force.');
+
+        $this->time_in_force = $time;
+
+        return $this;
+    }
+
+    /**
+     * Specify Buy order
+     */
+    public function buy(){
+
+        $this->side = 'buy';
+
+        return $this;
+    }
+
+    /**
+     * Specify Sell order
+     */
+    public function sell()
+    {
+
+        $this->side = 'sell';
+
         return $this;
     }
 
@@ -33,7 +76,7 @@ class Order{
      *
      * @return Collection
      */
-    function execute(){
+    public function execute(){
 
         $uri = '/v2/orders';
 
@@ -47,7 +90,7 @@ class Order{
             'qty'           => $this->quantity,
             'side'          => 'buy',
             'type'          => 'market',
-            'time_in_force' => 'day'
+            'time_in_force' => $this->time_in_force
         ];
 
         $response = Http::withHeaders($headers)
