@@ -45,7 +45,7 @@ class Alpaca
      */
     public function positions(String $symbol = null){
 
-        $uri = $symbol === null ? self::POSITIONS_URI : self::POSITIONS_URI . $symbol;
+        $uri = $symbol === null ? self::POSITIONS_URI : self::POSITIONS_URI . '/' . $symbol;
 
         $response = Http::withHeaders(self::headers())
             ->get(config('alpaca.paper_endpoint') . $uri)
