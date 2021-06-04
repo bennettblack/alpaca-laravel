@@ -9,22 +9,14 @@ class Order{
     private $quantity;
     private $time_in_force;
     private $side;
+    private $type = 'market';
 
+    /**
+     * Begin new order
+     */
     public function __construct(String $symbol){
 
         $this->symbol = $symbol;
-    }
-
-    /**
-     * Add a quantity to an order
-     *
-     * @return Order
-     */
-    public function quantity(String $quantity){
-
-        $this->quantity = $quantity;
-
-        return $this;
     }
 
     /**
@@ -35,8 +27,7 @@ class Order{
      *
      * @return Order
      */
-    public function force(String $time)
-    {
+    public function force(String $time){
 
         $times = ['day', 'gtc'];
 
@@ -51,9 +42,10 @@ class Order{
     /**
      * Specify Buy order
      */
-    public function buy(){
+    public function buy(String $quantity){
 
         $this->side = 'buy';
+        $this->quantity = $quantity;
 
         return $this;
     }
@@ -61,12 +53,19 @@ class Order{
     /**
      * Specify Sell order
      */
-    public function sell()
-    {
+    public function sell(String $quantity){
 
         $this->side = 'sell';
+        $this->quantity = $quantity;
 
         return $this;
+    }
+
+    /**
+     * Specify limit price
+     */
+    public function limit(){
+
     }
 
     /**
@@ -88,8 +87,8 @@ class Order{
         $body = [
             'symbol'        => $this->symbol,
             'qty'           => $this->quantity,
-            'side'          => 'buy',
-            'type'          => 'market',
+            'side'          => $this->side,
+            'type'          => $this->type,
             'time_in_force' => $this->time_in_force
         ];
 
@@ -97,9 +96,10 @@ class Order{
             ->post(config('alpaca.paper_endpoint') . $uri, $body)
             ->collect();
 
+        if($response->has('code'))
+            throw new \Exception($response['message']);
+
         return $response;
-        // ^TODO error check for appropriate HTTP Codes from alpaca
-        // or just the message?
     }
 
 }

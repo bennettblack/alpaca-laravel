@@ -4,7 +4,23 @@ namespace bennettblack\alpacalaravel;
 
 use Illuminate\Support\Facades\Http;
 
-class Alpaca{
+class Alpaca
+{
+    const ORDERS_URI = '/v2/orders';
+    const ACCOUNT_URI = '/v2/account';
+    const POSITIONS_URI = '/v2/positions';
+    const ASSETS_URI = '/v2/assets/';
+
+    /**
+     * DRY? There's gotta be a better way to do this.
+     */
+    private static function headers(){
+
+        return [
+            'APCA-API-KEY-ID' => config('alpaca.paper_key'),
+            'APCA-API-SECRET-KEY' => config('alpaca.paper_secret')
+        ];
+    }
 
     /**
      * Get user account information.
@@ -13,15 +29,8 @@ class Alpaca{
      */
     public function account(){
 
-        $uri = '/v2/account';
-
-        $headers = [
-            'APCA-API-KEY-ID' => config('alpaca.paper_key'),
-            'APCA-API-SECRET-KEY' => config('alpaca.paper_secret')
-        ];
-
-        $response = Http::withHeaders($headers)
-            ->get(config('alpaca.paper_endpoint'). $uri)
+        $response = Http::withHeaders(self::headers())
+            ->get(config('alpaca.paper_endpoint'). self::ACCOUNT_URI)
             ->collect();
 
         return $response;
@@ -36,14 +45,9 @@ class Alpaca{
      */
     public function positions(String $symbol = null){
 
-        $uri = $symbol === null ? '/v2/positions' : '/v2/positions/' . $symbol;
+        $uri = $symbol === null ? self::POSITIONS_URI : self::POSITIONS_URI . $symbol;
 
-        $headers = [
-            'APCA-API-KEY-ID' => config('alpaca.paper_key'),
-            'APCA-API-SECRET-KEY' => config('alpaca.paper_secret')
-        ];
-
-        $response = Http::withHeaders($headers)
+        $response = Http::withHeaders(self::headers())
             ->get(config('alpaca.paper_endpoint') . $uri)
             ->collect();
 
@@ -59,19 +63,28 @@ class Alpaca{
      */
     public function orders(){
 
-        $uri = '/v2/orders';
-
-        $headers = [
-            'APCA-API-KEY-ID' => config('alpaca.paper_key'),
-            'APCA-API-SECRET-KEY' => config('alpaca.paper_secret')
-        ];
-
-        $response = Http::withHeaders($headers)
-            ->get(config('alpaca.paper_endpoint') . $uri)
+        $response = Http::withHeaders(self::headers())
+            ->get(config('alpaca.paper_endpoint') . self::ORDERS_URI)
             ->collect();
 
         return $response;
     }
 
+    /**
+     * Get available assets.
+     *
+     * @param string $sybmol
+     *
+     * @return Collection
+     */
+    public function asset($symbol)
+    {
+
+        $response = Http::withHeaders(self::headers())
+            ->get(config('alpaca.paper_endpoint') . self::ASSETS_URI . $symbol)
+            ->collect();
+
+        return $response;
+    }
 
 }
