@@ -1,9 +1,12 @@
 <?php
 namespace bennettblack\alpacalaravel;
 
+use bennettblack\alpacalaravel\Traits\AlpacaRequest;
 use Illuminate\Support\Facades\Http;
 
-class Order{
+class Order
+{
+    use AlpacaRequest;
 
     private $symbol;
     private $quantity;
@@ -77,8 +80,6 @@ class Order{
      */
     public function execute(){
 
-        $uri = '/v2/orders';
-
         $headers = [
             'APCA-API-KEY-ID' => config('alpaca.paper_key'),
             'APCA-API-SECRET-KEY' => config('alpaca.paper_secret')
@@ -93,7 +94,7 @@ class Order{
         ];
 
         $response = Http::withHeaders($headers)
-            ->post(config('alpaca.paper_endpoint') . $uri, $body)
+            ->post(self::endpoint() . config('alpaca.orders_uri'), $body)
             ->collect();
 
         if($response->has('code'))

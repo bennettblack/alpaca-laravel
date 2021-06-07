@@ -1,5 +1,5 @@
 
-# Project Title
+# Alpaca Laravel
 
 A simple Laravel wrapper for the Alpaca V2 Trading API.
 
@@ -7,7 +7,8 @@ A simple Laravel wrapper for the Alpaca V2 Trading API.
 
 - Account Overview
 - Positions Overview
-    
+- Order Overview
+- Market & Limit Order Placement
 
 ## Installation 
 
@@ -17,19 +18,19 @@ Install via composer
   composer require bennettblack/alpaca-laravel
 ```
 
-
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
+### Mode
+`ALPACA_LIVE_MODE`
+
 ### Paper Trading
-`ALPACA_PAPER_ENDPOINT`
-`ALPACA_PAPER_KEY`
+`ALPACA_PAPER_KEY`<br>
 `ALPACA_PAPER_SECRET`
 
 ### Live Trading
-`ALPACA_LIVE_ENDPOINT`
-`ALPACA_LIVE_KEY`
+`ALPACA_LIVE_KEY`<br>
 `ALPACA_PAPER_SECRET`
 
   
