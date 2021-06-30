@@ -48,8 +48,9 @@ return [
     |
     */
 
-    'orders_uri'    => '/v2/orders',
-    'account_uri'  => '/v2/account',
-    'positions_uri' => '/v2/positions',
-    'assets_uri'    => '/v2/assets'
+    'orders_uri'        => '/v2/orders',
+    'account_uri'       => '/v2/account',
+    'positions_uri'     => '/v2/positions',
+    'assets_uri'        => '/v2/assets',
+    'activities_uri'    => '/v2/account/activities'
 ];

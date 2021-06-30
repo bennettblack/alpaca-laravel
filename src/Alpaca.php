@@ -23,6 +23,15 @@ class Alpaca
         return $response;
     }
 
+    public function activities(){
+
+        $response = Http::withHeaders(self::headers())
+            ->get(self::endpoint() . config('alpaca.activities_uri'))
+            ->collect();
+
+        return $response;
+    }
+
     /**
      * Get users open positions. Optionally pass a symbol for a specific position.
      *
