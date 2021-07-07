@@ -51,4 +51,18 @@ class AlpacaTest extends TestCase
         $this->assertEquals(200, $response);
     }
 
+    /**
+     * Test that positions data can be fetched for a specific position
+     */
+    public function test_can_get_specific_position_data()
+    {
+        $response = Http::withHeaders(Alpaca::headers())
+            ->get(Alpaca::endpoint() . config('alpaca.positions_uri') . '/WISH');
+
+        if($response['message'])
+            $this->assertEquals($response['message'], 'position does not exist');
+        else
+            $this->assertEquals($response->status(), 200);
+    }
+
 }
