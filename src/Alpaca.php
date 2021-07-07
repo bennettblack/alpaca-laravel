@@ -23,6 +23,11 @@ class Alpaca
         return $response;
     }
 
+    /**
+     * Get 100 most recent activities
+     *
+     * @return Collection
+     */
     public function activities(){
 
         $response = Http::withHeaders(self::headers())

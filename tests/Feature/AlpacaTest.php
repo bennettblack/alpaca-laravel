@@ -13,6 +13,10 @@ class AlpacaTest extends TestCase
      */
     public function test_can_get_account_data(){
 
+        $data = Alpaca::account();
+
+        if($data)
+            $this->assertTrue(true);
 
     }
 
