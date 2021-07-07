@@ -5,6 +5,7 @@ namespace bennettblack\alpacalaravel\tests\Feature;
 use bennettblack\alpacalaravel\Alpaca as AlpacalaravelAlpaca;
 use bennettblack\alpacalaravel\Facades\Alpaca;
 use bennettblack\alpacalaravel\Tests\TestCase;
+use Illuminate\Support\Facades\Http;
 
 class AlpacaTest extends TestCase
 {
@@ -27,16 +28,27 @@ class AlpacaTest extends TestCase
     }
 
     /**
-     * Test that account data can be fetched. ^TODO fix this test,
-     * unsure what response to expect if there are no account activities.
-     * (Ex: new account).
+     * Test that account data can be fetched
      */
     public function test_can_get_activities_data()
     {
-        $data = Alpaca::activities();
+        $response = Http::withHeaders(Alpaca::headers())
+            ->get(Alpaca::endpoint() . config('alpaca.activities_uri'))
+            ->status();
 
-        $this->assertTrue($data->count() > 0);
+        $this->assertEquals(200, $response);
     }
 
+    /**
+     * Test that positions data can be fetched
+     */
+    public function test_can_get_positions_data()
+    {
+        $response = Http::withHeaders(Alpaca::headers())
+            ->get(Alpaca::endpoint() . config('alpaca.positions_uri'))
+            ->status();
+
+        $this->assertEquals(200, $response);
+    }
 
 }
