@@ -9,7 +9,7 @@ trait AlpacaRequest{
      *
      * @return String
      */
-    private static function endpoint(){
+    public static function endpoint(){
 
         return config('alpaca.live_mode') ? config('alpaca.live_endpoint') : config('alpaca.paper_endpoint');
     }
@@ -19,7 +19,7 @@ trait AlpacaRequest{
      *
      * @return Array
      */
-    private static function headers()
+    public static function headers()
     {
 
         return [

@@ -31,7 +31,7 @@ class Alpaca
     public function activities(){
 
         $response = Http::withHeaders(self::headers())
-            ->get(self::endpoint() . config('alpaca.activities_uri'))
+            ->get(self::endpoint() .  config('alpaca.activities_uri'))
             ->collect();
 
         return $response;

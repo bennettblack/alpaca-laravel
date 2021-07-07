@@ -40,7 +40,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $app['config']->set('alpaca.paper_secret', 'KftU5n1L3K2zIlAUd7hQVsYJikloE9qTgT3dpyVY');
 
         $app['config']->set('alpaca.orders_uri', '/v2/orders');
-        $app['config']->set('alpaca.accounts_uri', '/v2/account');
+        $app['config']->set('alpaca.account_uri', '/v2/account');
         $app['config']->set('alpaca.positions_uri', '/v2/positions');
         $app['config']->set('alpaca.assets_uri', '/v2/assets');
         $app['config']->set('alpaca.activities_uri', '/v2/account/activities');
