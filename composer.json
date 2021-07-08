@@ -21,8 +21,7 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit --testdox",
-        "test-f": "vendor/bin/phpunit --filter",
-        "test -v": "vendor/bin/phpunit --verbose"
+        "test -f": "vendor/bin/phpunit --filter"
     },
     "extra": {
         "laravel": {

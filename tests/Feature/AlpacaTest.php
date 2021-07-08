@@ -28,15 +28,13 @@ class AlpacaTest extends TestCase
     }
 
     /**
-     * Test that account data can be fetched
+     * Test that activities data can be fetched
      */
     public function test_can_get_activities_data()
     {
-        $response = Http::withHeaders(Alpaca::headers())
-            ->get(Alpaca::endpoint() . config('alpaca.activities_uri'))
-            ->status();
+        $data = Alpaca::activities();
 
-        $this->assertEquals(200, $response);
+        $this->assertTrue(array_key_exists('activity_type', $data[0]), 'Do you have any account activities?');
     }
 
     /**
@@ -44,11 +42,9 @@ class AlpacaTest extends TestCase
      */
     public function test_can_get_positions_data()
     {
-        $response = Http::withHeaders(Alpaca::headers())
-            ->get(Alpaca::endpoint() . config('alpaca.positions_uri'))
-            ->status();
+        $data = Alpaca::positions();
 
-        $this->assertEquals(200, $response);
+        $this->assertTrue(array_key_exists('asset_id', $data[0]), 'Do you have any positions?');
     }
 
     /**
@@ -56,13 +52,33 @@ class AlpacaTest extends TestCase
      */
     public function test_can_get_specific_position_data()
     {
-        $response = Http::withHeaders(Alpaca::headers())
-            ->get(Alpaca::endpoint() . config('alpaca.positions_uri') . '/WISH');
+        $data = Alpaca::positions('F');
 
-        if($response['message'])
-            $this->assertEquals($response['message'], 'position does not exist');
+        if($data->has('message'))
+            $this->assertEquals($data['message'], 'position does not exist');
         else
-            $this->assertEquals($response->status(), 200);
+            $this->assertTrue($data->has('asset_id'));
+    }
+
+    /**
+     * Test that existing orders can be fetched.
+     * ^TODO better way to test this...
+     */
+    public function test_can_get_open_orders(){
+
+        $data = Alpaca::orders();
+
+        $this->assertGreaterThan(0, $data->count(), 'Do you have any open orders?');
+    }
+
+    /**
+     * Test that a particular asset can be fetched
+     */
+    public function test_can_get_asset(){
+
+        $data = Alpaca::asset('F');
+
+        $this->assertTrue($data->has('id'));
     }
 
 }

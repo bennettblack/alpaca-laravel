@@ -68,6 +68,8 @@ class Alpaca
             ->get(self::endpoint() . config('alpaca.orders_uri'))
             ->collect();
 
+            // ['status' => 'closed']
+
         return $response;
     }
 
