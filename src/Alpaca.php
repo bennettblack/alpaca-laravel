@@ -56,19 +56,22 @@ class Alpaca
     }
 
     /**
-     * Get users open orders.
+     * Get users orders.
      *
-     * @param string $sybmol
+     * @param String $type open, closed, or all
      *
      * @return Collection
      */
-    public function orders(){
+    public function orders($type = 'open'){
+
+        $types = ['open', 'closed', 'all'];
+
+        if (!in_array($type, $types))
+            throw new \Exception('You must enter a valid order type.');
 
         $response = Http::withHeaders(self::headers())
-            ->get(self::endpoint() . config('alpaca.orders_uri'))
+            ->get(self::endpoint() . config('alpaca.orders_uri'), ['status' => $type])
             ->collect();
-
-            // ['status' => 'closed']
 
         return $response;
     }
@@ -83,10 +86,9 @@ class Alpaca
     public function asset($symbol){
 
         $response = Http::withHeaders(self::headers())
-            ->get(self::endpoint() . config('alpaca.assets_uri') . '/' .$symbol)
+            ->get(self::endpoint() . config('alpaca.assets_uri') . '/' . $symbol)
             ->collect();
 
         return $response;
     }
-
 }

@@ -63,6 +63,7 @@ class AlpacaTest extends TestCase
     /**
      * Test that existing orders can be fetched.
      * ^TODO better way to test this...
+     * ^TODO test closed & all order types.
      */
     public function test_can_get_open_orders(){
 
