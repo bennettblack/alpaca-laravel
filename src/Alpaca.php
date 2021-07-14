@@ -59,11 +59,10 @@ class Alpaca
      * Get users orders.
      *
      * @param String $type open, closed, or all
-     * @param String $symbol
      *
      * @return Collection
      */
-    public function orders(String $type = 'open', String $symbol = null){
+    public function orders($type = 'open'){
 
         $types = ['open', 'closed', 'all'];
 
@@ -71,10 +70,7 @@ class Alpaca
             throw new \Exception('You must enter a valid order type.');
 
         $response = Http::withHeaders(self::headers())
-            ->get(self::endpoint() . config('alpaca.orders_uri'), [
-                    'status'    => $type,
-                    'symbols'   => $symbol
-                ])
+            ->get(self::endpoint() . config('alpaca.orders_uri'), ['status' => $type])
             ->collect();
 
         return $response;
