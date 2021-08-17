@@ -1,3 +1,4 @@
+![alt text](https://banners.beyondco.de/Alpaca%20Laravel.png?theme=light&packageManager=composer+require&packageName=bennettblack%2Falpaca-laravel&pattern=diagonalLines&style=style_2&description=Laravel+wrapper+for+the+Alpaca+trading+API&md=1&showWatermark=0&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg&widths=500&heights=350)
 
 # Alpaca Laravel
 
