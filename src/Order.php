@@ -2,6 +2,7 @@
 namespace bennettblack\alpacalaravel;
 
 use bennettblack\alpacalaravel\Traits\AlpacaRequest;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 
 class Order
@@ -27,10 +28,9 @@ class Order
      *
      * - Day Order: 'day',
      * - Good Until Cancelled: 'gtc'
-     *
-     * @return Order
      */
-    public function force(String $time){
+    public function force(String $time): Order
+    {
 
         $times = ['day', 'gtc'];
 
@@ -45,7 +45,8 @@ class Order
     /**
      * Specify Buy order
      */
-    public function buy(String $quantity){
+    public function buy(String $quantity): Order
+    {
 
         $this->side = 'buy';
         $this->quantity = $quantity;
@@ -56,7 +57,8 @@ class Order
     /**
      * Specify Sell order
      */
-    public function sell(String $quantity){
+    public function sell(String $quantity): Order
+    {
 
         $this->side = 'sell';
         $this->quantity = $quantity;
@@ -76,9 +78,9 @@ class Order
      *
      * @param string $sybmol
      *
-     * @return Collection
      */
-    public function execute(){
+    public function execute(): Collection
+    {
 
         $headers = [
             'APCA-API-KEY-ID' => config('alpaca.paper_key'),

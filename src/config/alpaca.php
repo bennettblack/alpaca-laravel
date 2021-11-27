@@ -18,7 +18,7 @@ return [
     | Paper Trading Credentials
     |--------------------------------------------------------------------------
     |
-    | These are your Alpaca paper trading API key and secret
+    | Your Alpaca paper trading API key and secret
     |
     */
 
@@ -31,7 +31,7 @@ return [
     | Live Trading Credentials
     |--------------------------------------------------------------------------
     |
-    | These are your Alpaca live trading API key and secret
+    | Your Alpaca live trading API key and secret
     |
     */
 
@@ -44,7 +44,7 @@ return [
     | Alpaca API V2 URI's
     |--------------------------------------------------------------------------
     |
-    | These are the endpoints defined in the alpaca docs.
+    | API endpoints defined in the alpaca docs.
     |
     */
 
